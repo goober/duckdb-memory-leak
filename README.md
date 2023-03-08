@@ -3,7 +3,7 @@
 This repository contains a minor golang application with the purpose of replicating a possible memory leak in the 
 [go-duckdb](https://github.com/marcboeker/go-duckdb) library.
 
-See [issue]() for further details.
+See [gh-81](https://github.com/marcboeker/go-duckdb/issues/81) for further details.
 
 ## Getting started
 The application consists of a tiny api that will process each line of a parquet file from 
