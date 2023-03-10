@@ -4,18 +4,19 @@ global:
   evaluation_interval: 10s
 
 scrape_configs:
-  - job_name: dev-push-gateway
-    metrics_path: /metrics
+  - job_name: python
+    metrics_path: /
     scheme: http
-    honor_labels: true
     static_configs:
-      - targets: ['prom-pushgateway:9091']
+      - targets: ['reference:8000']
         labels:
-          service: 'prom-pushgateway'
-  - job_name: app
+          service: duckdb-python
+          language: python
+  - job_name: golang
     metrics_path: /metrics
     scheme: http
     static_configs:
       - targets: ['app:8090']
         labels:
-          service: 'duckdb-troubleshooting'
+          service: 'duckdb-golang'
+          language: golang

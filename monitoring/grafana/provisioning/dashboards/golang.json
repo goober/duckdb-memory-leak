@@ -26,7 +26,6 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 6671,
   "graphTooltip": 0,
-  "id": 2,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -98,7 +97,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "process_resident_memory_bytes{service=~\"^($service)$\"}",
+          "expr": "process_resident_memory_bytes{service=~\"^($service)$\", language=\"golang\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -114,7 +113,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "process_virtual_memory_bytes{service=~\"^($service)$\"}",
+          "expr": "process_virtual_memory_bytes{service=~\"^($service)$\", language=\"golang\"}",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{service}} - virtual",
@@ -222,7 +221,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "rate(process_resident_memory_bytes{service=~\"^($service)$\"}[$interval])",
+          "expr": "rate(process_resident_memory_bytes{service=~\"^($service)$\",language=\"golang\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{service}} - resident",
@@ -237,7 +236,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "deriv(process_virtual_memory_bytes{service=~\"^($service)$\"}[$interval])",
+          "expr": "deriv(process_virtual_memory_bytes{service=~\"^($service)$\",language=\"golang\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{service}} - virtual",
@@ -648,7 +647,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "process_open_fds{service=~\"^($service)$\"}",
+          "expr": "process_open_fds{service=~\"^($service)$\",language=\"golang\"}",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{service}}",
@@ -751,7 +750,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "deriv(process_open_fds{service=~\"^($service)$\"}[$interval])",
+          "expr": "deriv(process_open_fds{service=~\"^($service)$\", language=\"golang\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{service}}",
@@ -1119,13 +1118,9 @@
       {
         "allValue": ".*",
         "current": {
-          "selected": true,
-          "text": [
-            "duckdb-troubleshooting"
-          ],
-          "value": [
-            "duckdb-troubleshooting"
-          ]
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": {
           "type": "prometheus",
@@ -1230,6 +1225,6 @@
   "timezone": "browser",
   "title": "Go Processes",
   "uid": "ypFZFgvmz",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

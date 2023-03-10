@@ -1,5 +1,12 @@
 version: '3'
 services:
+  reference:
+    platform: linux/amd64
+    build: reference
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data.parquet:/app/data.parquet
   app:
     platform: linux/amd64
     build: .
@@ -11,10 +18,6 @@ services:
       resources:
         limits:
           memory: 1024m
-  prom-pushgateway:
-    image: prom/pushgateway
-    ports:
-      - "9091:9091"
   prometheus:
     image: prom/prometheus
     volumes:

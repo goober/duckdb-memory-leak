@@ -1,7 +1,8 @@
-# Possible memory leak in [go-duckdb](https://github.com/marcboeker/go-duckdb)
+# Possible memory leak in [duckdb](https://github.com/duckdb/duckdb)
 
-This repository contains a minor golang application with the purpose of replicating a possible memory leak in the 
-[go-duckdb](https://github.com/marcboeker/go-duckdb) library.
+This repository contains minor applications written in golang and python with the purpose of replicating a 
+possible memory leak in the [go-duckdb](https://github.com/marcboeker/go-duckdb) library and / or the underlying
+[duckdb](https://github.com/duckdb/duckdb) library.
 
 See [gh-81](https://github.com/marcboeker/go-duckdb/issues/81) for further details.
 
@@ -12,12 +13,17 @@ processed rows. Even though this can be accomplished by a single `select count(*
 intention is to show what happens with the memory usage when you process large amount of rows from a parquet file.
 
 ```shell
+# Golang based application
+GET http://localhost:8090/query
+{"total": 12345}
+
+# Python based application
 GET http://localhost:8090/query
 {"total": 12345}
 ```
 
 ## Setup
-In addition to the api, a Grafana instance with a pre-configured dashboard and a Prometheus instance is included for
+In addition to the api, a Grafana instance with a pre-configured dashboards and a Prometheus instance are included for
 easier troubleshooting.
 
 ### Download dataset
@@ -39,12 +45,16 @@ limactl shell vz nerdctl compose up
 ```
 
 ## Reproduce
-Open Grafana at http://localhost:3000 and login with `admin:password`. Locate the `General / Go Processes` dashboard
+Open Grafana at http://localhost:3000 and login with `admin:password`. Locate the `General / Memory usage` dashboard
 and monitor the process memory graph. When you see that data points have been registered you make a http request to
-http://localhost:8090/query. The request will go through each line in the parquet file and just increment a dummy counter.
+http://localhost:8090/query for the golang based application, or http://localhost:8080 for the python based application.
+The request will go through each line in the parquet file and just increment a dummy counter.
 
 ```shell
+# Golang based application
 curl http://localhost:8090/query
+# Python based application
+curl http://localhost:8080
 ```
 
 Make notice of the resident memory usage that increases and does not fall after the garbage collection. Do repetitive http
